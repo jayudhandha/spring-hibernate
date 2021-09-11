@@ -6,17 +6,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.basic.springfundamentals.Student;
 
 @RestController
+@RequestMapping("/student")
 public class StudentController {
 
 	@Autowired
 	private Student std;
 	
-	@GetMapping(value = "/student")
+	@GetMapping
 	public Student getStudents() {
 		std.setEmail("test@gmail.com");
 		std.setRollNo(1);
@@ -24,7 +26,7 @@ public class StudentController {
 		return std;
 	}
 	
-	@GetMapping(value = "/student/{id}")
+	@GetMapping(value = "/{id}")
 	public Student getStudent(@PathVariable("id") int id) {
 		std.setEmail("test@gmail.com");
 		std.setRollNo(id);
@@ -32,7 +34,7 @@ public class StudentController {
 		return std;
 	}
 	
-	@PostMapping(value = "/student", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Student createStudent(@RequestBody Student stdObject) {
 		std.setEmail(stdObject.getEmail());
 		std.setName(stdObject.getName());
